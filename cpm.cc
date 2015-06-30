@@ -17,6 +17,7 @@ typedef class Activity
     int Lst;
     int Eet;
     int Let;
+    int Biaya;
     struct Activity *Successors[100];
     // Predecessors adalah pendahulunya
     struct Activity *Predecessors[100];
@@ -91,20 +92,22 @@ void GetActivities()
        activity = new (class Activity);
        activity->Predecessors[0]=NULL;
        activity->Successors[0]=NULL;
-       cout<<"\n            Aktivitas "<<(i+1)<<"\n";
-       cout<<"\n                     ID: ";
+       cout<<"\n\tAktivitas "<<(i+1)<<"\n";
+       cout<<"\tID\t: ";
        cin>>activity->Id;
-       cout<<"                 Durasi: ";
+       cout<<"\tDurasi\t: ";
        cin>>activity->durasi;
+       cout<<"\tBiaya\t: ";
+       cin>>activity->Biaya;
        int np;
-       cout<<"    Banyaknya pendahulu: ";
+       cout<<"\tBanyaknya pendahulu : ";
        cin>>np;
        List[i] = activity;
        if(np != 0) {
            char id[5];
            for(int j = 0; j < np; j++)
            {
-               cout<<"    #"<<(j+1)<<"     pendahulu ID: ";
+               cout<<"\t#"<<(j+1)<<" pendahulu ID\t: ";
                cin>>id;
                activity->Predecessors[j] = new (class Activity);
                aktifitas *aux;
@@ -182,19 +185,27 @@ void CriticalPath()
 {
     for(int i=0; i<na;i++)
     {
-        cout<<"\n           Node "<<i<<" = "<<List[i]->Id;
-        cout<<"\n           durasi "<<List[i]->durasi;
-        cout<<"\n           ES = "<<List[i]->Est;
-        cout<<"\n           EF = "<<List[i]->Eet;
-        cout<<"\n           LS = "<<List[i]->Lst;
-        cout<<"\n           LF = "<<List[i]->Let<<endl<<endl;
+        cout<<"\n\tNode "<<i<<" = "<<List[i]->Id;
+        cout<<"\n\tdurasi = "<<List[i]->durasi;
+        cout<<"\n\tES = "<<List[i]->Est;
+        cout<<"\n\tEF = "<<List[i]->Eet;
+        cout<<"\n\tLS = "<<List[i]->Lst;
+        cout<<"\n\tLF = "<<List[i]->Let;
+        cout<<"\n\tBiaya = "<<List[i]->Biaya<<endl<<endl;
     }
-    cout<<"\n          aktivitas kritis: ";
+    cout<<"\n\taktivitas kritis: ";
     cout<<endl;
+
+    int total_biaya;
+    total_biaya = 0;
     for(int i=0;i<na;i++)
     {
         if((List[i]->Eet - List[i]->Let) == 0 && (List[i]->Est - List[i]->Lst)== 0)
-            cout<<"\t\t"<<List[i]->Id<<endl;
+            cout<<"\t"<<List[i]->Id<<endl;
+            total_biaya += List[i]->Biaya;
     }
-    cout<<"\n\n         Total durasi: {0}\t\t"<<kritis;
+    cout<<"\n\n\tTotal durasi: \t"<<kritis;
+    cout<<"\n\tTotal biaya : \t"<<total_biaya;
+    cout<<endl;
+    cout<<endl;
 }
